@@ -11,7 +11,7 @@ The exension checks the page for the text that holds the shipping information. I
 
 ## Currently supported Amazon sites
 The following Amazon sites are currently supported, but not every site has been tested.
-Furhtermore, not every site has it's own translation for the warning message.
+Furthermore, not every site has it's own translation for the warning message.
 
 - amazon.com
 - amazon.co.uk
