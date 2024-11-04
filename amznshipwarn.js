@@ -13,7 +13,7 @@ const shippmentEntries = offerTextElementsArray
 	.filter(element => !element.innerText.includes("Amazon") && !element.innerHTML.includes("<a href"))
 
 if (shippmentEntries.length > 0) {
-	console.info("Non-Amazon offers found", shippmentEntries);
+	console.info("Non-Amazon offers found! Adding warning to page");
 	// Display warning
 	const warningElement = document.createElement("div");
 	warningElement.style = "background-color: #ff0000; color: #ffffff; padding: 5px; margin: 5px; border-radius: 5px;";
@@ -28,7 +28,6 @@ if (shippmentEntries.length > 0) {
 	const buyNowButton = document.getElementById("submit.buy-now-announce");
 	const addToCartButton = document.getElementById("submit.add-to-cart-announce");
 	if (addToCartButton) {
-		console.debug(addToCartButton)
 		addToCartButton.textContent = `📦🚨 ${addToCartButton.textContent}`;
 	}
 	if (buyNowButton) {
