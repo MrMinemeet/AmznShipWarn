@@ -31,3 +31,6 @@ Furthermore, not every site has it's own translation for the warning message.
 - amazon.eg
 - amazon.sg
 - amazon.com.tr
+
+## External Dependencies
+The extension is minified using the [Google Closure Compiler](https://github.com/google/closure-compiler).

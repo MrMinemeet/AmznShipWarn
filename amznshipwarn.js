@@ -47,7 +47,8 @@ function getWarning() {
 			return "Ce produit n'est pas expédié par Amazon";
 		case "it":
 			return "Questo prodotto non è spedito da Amazon";
-		case "es", "com.mx":
+		case "es":
+		case "com.mx":
 			return "Este producto no es enviado por Amazon";
 		// TODO: Add more countries based on the Amazon TLD
 		default:

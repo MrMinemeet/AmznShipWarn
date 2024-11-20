@@ -1,1 +1,5 @@
 *.zip
+
+*.min.js
+
+closure-compiler.jar
