@@ -30,5 +30,11 @@
 				"amznshipwarn.min.js"
 			]
 		}
-	]
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{8c008546-9dae-4ce4-8650-345f633ae944}",
+			"strict_min_version": "109.0"
+		}
+	}
 }
