@@ -30,4 +30,10 @@ fi
 # This script minifies and then packs up necessary files into a .zip for publishing
 java -jar $CLOSURE_COMPILER_PATH -O ADVANCED --js amznshipwarn.js --js_output_file amznshipwarn.min.js --language_out=ECMASCRIPT_2019
 
-zip AmznShipWarn.zip amznshipwarn.min.js LICENSE manifest.json
+
+rm ./AmznShipWarn.zip
+zip ./AmznShipWarn.zip amznshipwarn.min.js LICENSE manifest.json
+
+# Unminified version for AMO submission
+rm ./AmznShipWarn_non_minified.zip
+zip ./AmznShipWarn_non_minified.zip amznshipwarn.js README.md LICENSE manifest.json > /dev/null
