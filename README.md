@@ -7,7 +7,9 @@ For Firefox, you can directly get the extension from the offical Add-On page.
 [![Firefox-Extension](./get-the-addon-small.png)](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
 
 ### Chrome 🔵🔴🟡🟢
-As Google demands a 5€ fee to become a Chrome Extension Developer, I will not publish the extension on the Chrome Web Store.  
+> [!CAUTION]
+> As Google demands a 5€ fee to become a Chrome Extension Developer, I've not published the extension in the Chrome Web Store!
+
 However, you can still install the extension manually:
 1. Download the latest `.zip` from the [releases page](https://github.com/MrMinemeet/AmznShipWarn/releases)
 2. In Chrome, go to `chrome://extensions/` and enable Developer Mode
