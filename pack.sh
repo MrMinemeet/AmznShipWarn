@@ -37,7 +37,7 @@ java -jar $CLOSURE_COMPILER_PATH -O ADVANCED --js amznshipwarn.js --js_output_fi
 
 # Minified version for actual add-on
 rm ./AmznShipWarn.zip > /dev/null 2>&1
-zip ./AmznShipWarn.zip $MINIFIED_OUTPUT LICENSE manifest.json
+zip -j  ./AmznShipWarn.zip $MINIFIED_OUTPUT LICENSE manifest.json
 echo "Public version packed into AmznShipWarn.zip"
 
 # Unminified version for AMO submission
