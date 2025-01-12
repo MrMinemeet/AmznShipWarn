@@ -11,7 +11,7 @@ For Firefox, you can directly get the extension from the offical Add-On page.
 > As Google demands a 5€ fee to become a Chrome Extension Developer, I've not published the extension in the Chrome Web Store!
 
 However, you can still install the extension manually:
-1. Download the latest `.zip` from the [releases page](https://github.com/MrMinemeet/AmznShipWarn/releases)
+1. Download the `.zip` from the [latest release](https://github.com/MrMinemeet/AmznShipWarn/releases/latest)
 2. In Chrome, go to `chrome://extensions/` and enable Developer Mode
 3. Drag and drop the `.zip` file into the Chrome window
 
