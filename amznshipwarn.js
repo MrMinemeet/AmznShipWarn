@@ -6,8 +6,7 @@
 console.info("Amazon Shipping Warning Extension loaded");
 
 // Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-const offerTextElements = document.getElementsByClassName("offer-display-feature-text a-spacing-none");
-const offerTextElementsArray = Array.from(offerTextElements);
+const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text a-spacing-none"));
 
 // Check if the inner-html for any non-amazon "Sending" offers
 const shippmentEntries = offerTextElementsArray
@@ -31,14 +30,20 @@ if (shippmentEntries != null) {
 	shippmentEntries.parentNode?.insertBefore(warningElement, shippmentEntries);
 
 	// Add warning symbols to "Buy now" and "Add to cart" buttons
-	const addToCartButton = document.getElementById("submit.add-to-cart-announce");
+	const addToCartButton = document.getElementById("submit.add-to-cart");
 	if (addToCartButton) {
 		addToCartButton.textContent = `📦🚨 ${addToCartButton.textContent}`;;
+	} else {
+		console.warn("'Add to cart' button not found. Not able to add warning symbol");
 	}
-	const buyNowButton = document.getElementById("submit.buy-now-announce");
+	const buyNowButton = document.getElementById("submit.buy-now");
 	if (buyNowButton) {
-		buyNowButton.textContent = `📦🚨 ${buyNowButton.textContent}`;;
+		buyNowButton.textContent = `📦🚨 ${buyNowButton.textContent}`;
+	} else {
+		console.warn("'Buy now button' not found. Not able to add warning symbol");
 	}
+} else {
+	console.debug("No non-Amazon offers found");
 }
 
 /**
