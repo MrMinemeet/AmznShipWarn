@@ -1,12 +1,15 @@
 #!/bin/sh
+# This script minifies and then packs up necessary files into a .zip for publishing
+# It utilizes the Google Closure Compiler to minify the JavaScript code
 
-CLOSURE_COMPILER_PATH="./closure-compiler.jar"
+CLOSURE_COMPILER_PATH="tmp/closure-compiler.jar"
 
 fetch_closure_compiler() {
 	# Fetch the latest version of the closure compiler
 	latest_version=$(curl -s https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/ | grep -oP '(?<=href=")[^"]*(?=/)' | sort -V | tail -n 1)
 	# Download and rename the closure compiler
-	wget https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/$latest_version/closure-compiler-$latest_version.jar -O $CLOSURE_COMPILER_PATH
+	echo "Downloading closure compiler version $latest_version..."
+	wget https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/$latest_version/closure-compiler-$latest_version.jar -O $CLOSURE_COMPILER_PATH > /dev/null
 
 	# Verify the checksum of closure compiler with the checksum file
 	expected_sha512=$(curl -s https://repo1.maven.org/maven2/com/google/javascript/closure-compiler/$latest_version/closure-compiler-$latest_version.jar.sha512)
@@ -28,12 +31,16 @@ fi
 
 
 # This script minifies and then packs up necessary files into a .zip for publishing
-java -jar $CLOSURE_COMPILER_PATH -O ADVANCED --js amznshipwarn.js --js_output_file amznshipwarn.min.js --language_out=ECMASCRIPT_2019
+MINIFIED_OUTPUT="./tmp/amznshipwarn.min.js"
+java -jar $CLOSURE_COMPILER_PATH -O ADVANCED --js amznshipwarn.js --js_output_file $MINIFIED_OUTPUT --language_out=ECMASCRIPT_2020
 
 
-rm ./AmznShipWarn.zip
-zip ./AmznShipWarn.zip amznshipwarn.min.js LICENSE manifest.json
+# Minified version for actual add-on
+rm ./AmznShipWarn.zip > /dev/null 2>&1
+zip ./AmznShipWarn.zip $MINIFIED_OUTPUT LICENSE manifest.json
+echo "Public version packed into AmznShipWarn.zip"
 
 # Unminified version for AMO submission
-rm ./AmznShipWarn_non_minified.zip
-zip ./AmznShipWarn_non_minified.zip amznshipwarn.js README.md LICENSE manifest.json > /dev/null
+rm ./AmznShipWarn_non_minified.zip > /dev/null 2>&1
+zip ./AmznShipWarn_non_minified.zip amznshipwarn.js README.md LICENSE manifest.json > /dev/null 2>&1
+echo "Non-minified version for AMO packed into AmznShipWarn_non_minified.zip"
