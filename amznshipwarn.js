@@ -28,8 +28,7 @@ if (shippmentEntries != null) {
 	warningElement.title = warningText;
 
 	// Insert warning in seller/shipping info
-	const firstElement = shippmentEntries[0];
-	firstElement.parentNode.insertBefore(warningElement, firstElement);
+	shippmentEntries.parentNode?.insertBefore(warningElement, shippmentEntries);
 
 	// Add warning symbols to "Buy now" and "Add to cart" buttons
 	const addToCartButton = document.getElementById("submit.add-to-cart-announce");
