@@ -5,40 +5,93 @@
  */
 console.info("Amazon Shipping Warning Extension loaded");
 
-// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-const offerTextElements = document.getElementsByClassName("offer-display-feature-text a-spacing-none");
-const offerTextElementsArray = Array.from(offerTextElements);
+if (0 < document.getElementsByClassName("amzhshipwarn").length) {
+	console.info("Amzshipwarn content on page detected. Extension possibly already loaded. Exiting…");
+} else {
+	init();
+}
 
-// Check if the inner-html for any non-amazon "Sending" offers
-const shippmentEntries = offerTextElementsArray
-	.filter(element => !element.innerText.includes("Amazon") && !element.innerHTML.includes("<a href"))[0];
+/**
+ * Checks for non-Amazon offers and adds a warning to the page if any are found
+ * @returns {void}
+ */
+function init() {
+	if (!isNonAmazonFulfillment()) {
+		console.info("No non-amazon offers found");
+		return;
+	}
 
-if (shippmentEntries != null) {
 	console.info("Non-Amazon offers found! Adding warning to page");
-	// Display warning
-	const warningElement = document.createElement("div");
-	warningElement.style.backgroundColor = "#ff0000";
-	warningElement.style.color = "#ffffff";
-	warningElement.style.padding = "5px";
-	warningElement.style.margin = "5px";
-	warningElement.style.borderRadius = "5px";
-	
-	const warningText = `⚠️ ${getWarning()}`;
-	warningElement.innerText = warningText;
-	warningElement.title = warningText;
+	// Insert warning in seller/shipment/… info box
+	const expanderContent = document.getElementsByClassName("offer-display-features-container")[0];
+	if (expanderContent) {
+		// Display warning
+		const warningElement = document.createElement("div");
+		warningElement.className = "amzhshipwarn";
+		warningElement.id = "non-amazon-warning";
+		warningElement.style.backgroundColor = "#ff0000";
+		warningElement.style.color = "#ffffff";
+		warningElement.style.padding = "5px";
+		warningElement.style.margin = "5px";
+		warningElement.style.borderRadius = "5px";
 
-	// Insert warning in seller/shipping info
-	shippmentEntries.parentNode?.insertBefore(warningElement, shippmentEntries);
+		const warningText = `⚠️ ${getWarning()}`;
+		warningElement.innerText = warningText;
+		warningElement.title = warningText;
+		expanderContent.parentElement?.insertBefore(warningElement, expanderContent);
+	} else {
+		console.warn("Offer box not found. Failed to add warning message")
+	}
 
 	// Add warning symbols to "Buy now" and "Add to cart" buttons
-	const addToCartButton = document.getElementById("submit.add-to-cart-announce");
+	const addToCartButton = document.getElementById("submit.add-to-cart");
 	if (addToCartButton) {
 		addToCartButton.textContent = `📦🚨 ${addToCartButton.textContent}`;;
+	} else {
+		console.warn("'Add to cart' button not found. Not able to add warning symbol");
 	}
-	const buyNowButton = document.getElementById("submit.buy-now-announce");
+	const buyNowButton = document.getElementById("submit.buy-now");
 	if (buyNowButton) {
-		buyNowButton.textContent = `📦🚨 ${buyNowButton.textContent}`;;
+		buyNowButton.textContent = `📦🚨 ${buyNowButton.textContent}`;
+	} else {
+		console.warn("'Buy now button' not found. Not able to add warning symbol");
 	}
+}
+
+/**
+ * Checks wether the item on the current page is fulfilled by some non-amazon seller
+ * @returns {boolean} True if non-amazon offer is found
+ */
+function isNonAmazonFulfillment() {
+	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
+	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text-message"));
+
+	// Check if the inner-html for any non-amazon "Sending" offers
+	if (offerTextElementsArray.length === 0) {
+		console.error("No offer text found! Cannot determine if non-amazon offer");
+		return false;
+	}
+
+	if (offerTextElementsArray.some((element) =>
+		element.tagName === "SPAN" && // Message is in a span element
+		!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+		element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
+	)) {
+		return true;
+	}
+
+	// When logged in on the mobile view, then the "seller and fulfiller" info may be combined into one line
+	console.debug("No non-amazon offer found in traditonal layout! Checking combined 'sold and fulfiled' layout");
+	// "fulfillerInfoFeature_feature_div" has to have no children
+	if (document.getElementById("fulfillerInfoFeature_feature_div")?.childElementCount === 0) {
+		return offerTextElementsArray.some((element) =>
+			element.tagName === "SPAN" && // Message is in a span element
+			!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+			element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("merchantinfofeature") // should have parent with "merchantInfoFeature" in id
+		);
+	}
+
+	return false;
 }
 
 /**
