@@ -5,16 +5,30 @@
  */
 console.info("Amazon Shipping Warning Extension loaded");
 
-// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text"));
+if (0 < document.getElementsByClassName("amzhshipwarn").length) {
+	console.info("Amzshipwarn content on page detected. Extension possibly already loaded. Exiting…");
+} else {
+	init();
+}
 
-// Check if the inner-html for any non-amazon "Sending" offers
-const shippmentEntries = offerTextElementsArray
-	.filter(element => !element.innerText.includes("Amazon") && !element.innerHTML.includes("<a href"))[0];
+/**
+ * Checks for non-Amazon offers and adds a warning to the page if any are found
+ * @returns {void}
+ */
+function init() {
+	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
+	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text"));
 
-if (shippmentEntries != null) {
+	// Check if the inner-html for any non-amazon "Sending" offers
+	const shippmentEntries = offerTextElementsArray
+		.filter(element => !element.innerText.includes("Amazon") && !element.innerHTML.includes("<a href"))[0];
+
+	if (shippmentEntries == null) {
+		console.debug("No non-Amazon offers found");
+		return;
+	}
+	
 	console.info("Non-Amazon offers found! Adding warning to page");
-
 	// Insert warning in seller/shipment/… info box
 	const expanderContent = document.getElementsByClassName("offer-display-features-container")[0];
 	if (expanderContent) {
@@ -27,7 +41,7 @@ if (shippmentEntries != null) {
 		warningElement.style.padding = "5px";
 		warningElement.style.margin = "5px";
 		warningElement.style.borderRadius = "5px";
-		
+
 		const warningText = `⚠️ ${getWarning()}`;
 		warningElement.innerText = warningText;
 		warningElement.title = warningText;
@@ -49,8 +63,6 @@ if (shippmentEntries != null) {
 	} else {
 		console.warn("'Buy now button' not found. Not able to add warning symbol");
 	}
-} else {
-	console.debug("No non-Amazon offers found");
 }
 
 /**
