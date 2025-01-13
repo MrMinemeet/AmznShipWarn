@@ -17,17 +17,25 @@ if (0 < document.getElementsByClassName("amzhshipwarn").length) {
  */
 function init() {
 	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text"));
+	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text-message"));
 
 	// Check if the inner-html for any non-amazon "Sending" offers
-	const shippmentEntries = offerTextElementsArray
-		.filter(element => !element.innerText.includes("Amazon") && !element.innerHTML.includes("<a href"))[0];
-
-	if (shippmentEntries == null) {
+	if (offerTextElementsArray == null) {
+		console.debug("No offer text found!");
+		return
+	}
+	const fulfillmentInfo = offerTextElementsArray.find((element) =>
+			// FIXME: On monile the element depends on being logged in or not
+			// FIXME: "Once it shows "sold and fulfilled" in one line, and once in seprarate lines
+			element.tagName === "SPAN" && // Message is in a span element
+			!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+			element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
+		);
+	if (fulfillmentInfo == null) {
 		console.debug("No non-Amazon offers found");
 		return;
 	}
-	
+
 	console.info("Non-Amazon offers found! Adding warning to page");
 	// Insert warning in seller/shipment/… info box
 	const expanderContent = document.getElementsByClassName("offer-display-features-container")[0];
