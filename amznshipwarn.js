@@ -16,23 +16,8 @@ if (0 < document.getElementsByClassName("amzhshipwarn").length) {
  * @returns {void}
  */
 function init() {
-	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text-message"));
-
-	// Check if the inner-html for any non-amazon "Sending" offers
-	if (offerTextElementsArray == null) {
-		console.debug("No offer text found!");
-		return
-	}
-	const fulfillmentInfo = offerTextElementsArray.find((element) =>
-			// FIXME: On monile the element depends on being logged in or not
-			// FIXME: "Once it shows "sold and fulfilled" in one line, and once in seprarate lines
-			element.tagName === "SPAN" && // Message is in a span element
-			!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
-			element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
-		);
-	if (fulfillmentInfo == null) {
-		console.debug("No non-Amazon offers found");
+	if (!isNonAmazonFulfillment()) {
+		console.info("No non-amazon offers found");
 		return;
 	}
 
@@ -71,6 +56,42 @@ function init() {
 	} else {
 		console.warn("'Buy now button' not found. Not able to add warning symbol");
 	}
+}
+
+/**
+ * Checks wether the item on the current page is fulfilled by some non-amazon seller
+ * @returns {boolean} True if non-amazon offer is found
+ */
+function isNonAmazonFulfillment() {
+	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
+	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text-message"));
+
+	// Check if the inner-html for any non-amazon "Sending" offers
+	if (offerTextElementsArray.length === 0) {
+		console.error("No offer text found! Cannot determine if non-amazon offer");
+		return false;
+	}
+
+	if (offerTextElementsArray.some((element) =>
+		element.tagName === "SPAN" && // Message is in a span element
+		!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+		element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
+	)) {
+		return true;
+	}
+
+	// When logged in on the mobile view, then the "seller and fulfiller" info may be combined into one line
+	console.debug("No non-amazon offer found in traditonal layout! Checking combined 'sold and fulfiled' layout");
+	// "fulfillerInfoFeature_feature_div" has to have no children
+	if (document.getElementById("fulfillerInfoFeature_feature_div")?.childElementCount === 0) {
+		return offerTextElementsArray.some((element) =>
+			element.tagName === "SPAN" && // Message is in a span element
+			!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+			element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("merchantinfofeature") // should have parent with "merchantInfoFeature" in id
+		);
+	}
+
+	return false;
 }
 
 /**
