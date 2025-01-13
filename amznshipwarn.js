@@ -14,22 +14,26 @@ const shippmentEntries = offerTextElementsArray
 
 if (shippmentEntries != null) {
 	console.info("Non-Amazon offers found! Adding warning to page");
-	// Display warning
-	const warningElement = document.createElement("div");
-	warningElement.style.backgroundColor = "#ff0000";
-	warningElement.style.color = "#ffffff";
-	warningElement.style.padding = "5px";
-	warningElement.style.margin = "5px";
-	warningElement.style.borderRadius = "5px";
-	
-	const warningText = `⚠️ ${getWarning()}`;
-	warningElement.innerText = warningText;
-	warningElement.title = warningText;
 
 	// Insert warning in seller/shipment/… info box
 	const expanderContent = document.getElementsByClassName("offer-display-features-container")[0];
 	if (expanderContent) {
+		// Display warning
+		const warningElement = document.createElement("div");
+		warningElement.className = "amzhshipwarn";
+		warningElement.id = "non-amazon-warning";
+		warningElement.style.backgroundColor = "#ff0000";
+		warningElement.style.color = "#ffffff";
+		warningElement.style.padding = "5px";
+		warningElement.style.margin = "5px";
+		warningElement.style.borderRadius = "5px";
+		
+		const warningText = `⚠️ ${getWarning()}`;
+		warningElement.innerText = warningText;
+		warningElement.title = warningText;
 		expanderContent.parentElement?.insertBefore(warningElement, expanderContent);
+	} else {
+		console.warn("Offer box not found. Failed to add warning message")
 	}
 
 	// Add warning symbols to "Buy now" and "Add to cart" buttons
