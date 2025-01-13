@@ -6,7 +6,7 @@
 console.info("Amazon Shipping Warning Extension loaded");
 
 // Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
-const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text a-spacing-none"));
+const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text"));
 
 // Check if the inner-html for any non-amazon "Sending" offers
 const shippmentEntries = offerTextElementsArray
@@ -26,8 +26,11 @@ if (shippmentEntries != null) {
 	warningElement.innerText = warningText;
 	warningElement.title = warningText;
 
-	// Insert warning in seller/shipping info
-	shippmentEntries.parentNode?.insertBefore(warningElement, shippmentEntries);
+	// Insert warning in seller/shipment/… info box
+	const expanderContent = document.getElementsByClassName("offer-display-features-container")[0];
+	if (expanderContent) {
+		expanderContent.parentElement?.insertBefore(warningElement, expanderContent);
+	}
 
 	// Add warning symbols to "Buy now" and "Add to cart" buttons
 	const addToCartButton = document.getElementById("submit.add-to-cart");
