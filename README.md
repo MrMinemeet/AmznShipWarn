@@ -4,7 +4,9 @@ A browser extension that adds a warning to the Amazon page, if the item is not s
 ## How to install
 ### Firefox 🦊
 For Firefox, you can directly get the extension from the offical Add-On page.  
-[![Firefox-Extension](./get-the-addon-small.png)](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
+Also works on Firefox for Android™ <img src="./android-head_flat.svg" alt="Android Robot" width="20"/>
+
+[<img src="./get-the-addon-2020.svg" alt="get-the-addon button" width="150"/>](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
 
 ### Chrome 🔵🔴🟡🟢
 > [!CAUTION]
@@ -45,3 +47,10 @@ Furthermore, not every site has it's own translation for the warning message.
 
 ## External Dependencies
 The extension is minified using the [Google Closure Compiler](https://github.com/google/closure-compiler).
+
+# Trademarks & Attribution
+This extension is not affiliated with Amazon or any of the other mentioned entities in any way. It just provides a visual warning to the user.
+
+* The "Get the Add-on" button  is provided at [Extensionworkshop.com](https://extensionworkshop.com/documentation/publish/promoting-your-extension/#promote-your-addon) by the Mozilla Foundation.
+
+* Android is a trademark of Google LLC. 
