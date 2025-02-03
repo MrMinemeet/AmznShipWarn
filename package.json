@@ -1,0 +1,37 @@
+{
+  "name": "AmznShipWarn",
+  "version": "1.0.0",
+  "author": "Alexander Voglsperger",
+  "homepage": "https://github.com/MrMinemeet/AmznShipWarn#readme",
+  "license": "MIT",
+  "description": "pnpm dev tools",
+  "private": true,
+  "main": "amznsshipwarn.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrMinemeet/AmznShipWarn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MrMinemeet/AmznShipWarn/issues"
+  },
+  "keywords": [
+    "firefox",
+    "addon",
+    "chrome",
+    "extension",
+    "shopping"
+  ],
+  "scripts": {
+    "build": "node ./tools/build.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "google-closure-compiler": "^20240317.0.0"
+  },
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
+}

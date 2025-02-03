@@ -45,8 +45,17 @@ Furthermore, not every site has it's own translation for the warning message.
 - amazon.sg
 - amazon.com.tr
 
-## External Dependencies
-The extension is minified using the [Google Closure Compiler](https://github.com/google/closure-compiler).
+## Development Dependencies
+For building the extension as expected by the browsers, you need to have the following dependencies installed:
+- Node.js
+- pnpm
+- dev-dependencies (see `package.json`)
+
+### How to build
+1. Clone the repository
+2. Run `pnpm install` to install the dependencies
+3. Run `pnpm build` to build the extension
+4. The built extension is located in the `out` folder
 
 ---
 
