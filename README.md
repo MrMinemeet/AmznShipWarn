@@ -48,8 +48,10 @@ Furthermore, not every site has it's own translation for the warning message.
 ## External Dependencies
 The extension is minified using the [Google Closure Compiler](https://github.com/google/closure-compiler).
 
+---
+
 # Trademarks & Attribution
-This extension is not affiliated with Amazon or any of the other mentioned entities in any way. It just provides a visual warning to the user.
+This extension is not affiliated with Amazon or any of the other mentioned entities in any way. This extension just provides a visual warning to the user.
 
 * The "Get the Add-on" button  is provided at [Extensionworkshop.com](https://extensionworkshop.com/documentation/publish/promoting-your-extension/#promote-your-addon) by the Mozilla Foundation.
 
