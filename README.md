@@ -17,8 +17,8 @@ Also works on Firefox for Android™ <img src="./android-head_flat.svg" alt="And
 [<img src="./get-the-addon-2020.svg" alt="get-the-addon button" width="150"/>](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
 
 ### Chrome 🔵🔴🟡🟢
-> [!CAUTION]
-> As Google demands a 5€ fee to become a Chrome Extension Developer, I've not published the extension in the Chrome Web Store!
+> [!NOTE]
+> A Chrome Web Store version is currently not available. But is planned for the future.
 
 However, you can still install the extension manually:
 1. Download the `.zip` from the [latest release](https://github.com/MrMinemeet/AmznShipWarn/releases/latest)
