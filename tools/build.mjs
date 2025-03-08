@@ -14,7 +14,8 @@ const MINIFIED_FILE = path.join(".", "tmp", "amznshipwarn.min.js");
 // Additional files bundled in the ZIP archive
 const ADDITIONAL_ZIP_FILES = [
 	path.join(".", "manifest.json"),
-	path.join(".", "LICENSE")
+	path.join(".", "LICENSE"),
+	path.join(".", "icons")
 ];
 
 const OUT_FOLDER = path.join(".", "out");
@@ -35,7 +36,7 @@ async function minify(srcFile, destFile) {
 			language_out: "ECMASCRIPT_2020",
 			js_output_file: destFile
 		}).run((exitCode, stdOut, stdErr) => {
-			if(exitCode) {
+			if (exitCode) {
 				reject(`Failed to minify ${srcFile}: ${stdErr}`);
 			} else {
 				resolve(`Minified ${srcFile} to ${destFile}`);
@@ -46,11 +47,11 @@ async function minify(srcFile, destFile) {
 
 /**
  * Creates a ZIP archive containing the given files
- * @param {string[]} sourceFiles List of files to include in the ZIP archive
+ * @param {string[]} sources List of files/folders to include in the ZIP archive
  * @param {string} targetFile Where to write the ZIP archive
  * @returns {Promise<string>}
  */
-async function zipFiles(sourceFiles, targetFile) {
+async function zipFiles(sources, targetFile) {
 	return new Promise((resolve, reject) => {
 		const output = fs.createWriteStream(targetFile);
 		const archive = archiver("zip", { zlib: { level: 9 } });
@@ -60,8 +61,12 @@ async function zipFiles(sourceFiles, targetFile) {
 
 		archive.pipe(output);
 
-		for(const file of sourceFiles) {
-			archive.file(file, { name: path.basename(file) });
+		for (const src of sources) {
+			if (fs.statSync(src).isDirectory()) {
+				archive.directory(src, path.basename(src));
+			} else {
+				archive.file(src, { name: path.basename(src) });
+			}
 		}
 
 		archive.finalize();
