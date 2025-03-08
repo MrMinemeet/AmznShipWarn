@@ -1,3 +1,11 @@
+<img src="./icons/icon-128.png" width="100px">
+
+![GitHub License](https://img.shields.io/github/license/mrminemeet/amznshipwarn)
+![GitHub Release](https://img.shields.io/github/v/release/mrminemeet/amznshipwarn)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/mrminemeet/amznshipwarn?style=flat&label=Github%20Stars)
+![Mozilla Add-on Users](https://img.shields.io/amo/users/amznshipwarn?style=flat&label=Firefox%20Users)
+
 # AmznShipWarn
 A browser extension that adds a warning to the Amazon page, if the item is not shipped by Amazon directly
 
