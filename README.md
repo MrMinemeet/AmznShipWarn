@@ -5,6 +5,8 @@
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/mrminemeet/amznshipwarn?style=flat&label=Github%20Stars)
 ![Mozilla Add-on Users](https://img.shields.io/amo/users/amznshipwarn?style=flat&label=Firefox%20Users)
+![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/hlechooecihfmncfdhdjjhkdpmojmllm?label=Chrome%20Users)
+
 
 # AmznShipWarn
 A browser extension that adds a warning to the Amazon page, if the item is not shipped by Amazon directly
@@ -12,15 +14,17 @@ A browser extension that adds a warning to the Amazon page, if the item is not s
 ## How to install
 ### Firefox 🦊
 For Firefox, you can directly get the extension from the offical Add-On page.  
-Also works on Firefox for Android™ <img src="./android-head_flat.svg" alt="Android Robot" width="20"/>
+Also works on Firefox for Android™ <img src="./images/android-head_flat.svg" alt="Android Robot" width="20"/>
 
-[<img src="./get-the-addon-2020.svg" alt="get-the-addon button" width="150"/>](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
+[<img src="./images/firefox-get-the-addon-2020.svg" alt="Firefox Add-On page" height="50"/>](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
 
 ### Chrome 🔵🔴🟡🟢
-> [!NOTE]
-> A Chrome Web Store version is currently not available. But is planned for the future.
+For Google Chrome (and most Chromium-based browsers), you can get the extension from the official Chrome Web Store.
 
-However, you can still install the extension manually:
+[<img src="./images/chrome-get-the-extension.png" alt="Chrome Web Store" height="50"/>](https://chromewebstore.google.com/detail/amznshipwarn/hlechooecihfmncfdhdjjhkdpmojmllm)
+
+
+**Note:** If you use a chromium based browser, but don't want to use the official Chrome Web Store, yo can still install the extension manually:
 1. Download the `.zip` from the [latest release](https://github.com/MrMinemeet/AmznShipWarn/releases/latest)
 2. In Chrome, go to `chrome://extensions/` and enable Developer Mode
 3. Drag and drop the `.zip` file into the Chrome window
@@ -70,6 +74,8 @@ For building the extension as expected by the browsers, you need to have the fol
 # Trademarks & Attribution
 This extension is not affiliated with Amazon or any of the other mentioned entities in any way. This extension just provides a visual warning to the user.
 
-* The "Get the Add-on" button  is provided at [Extensionworkshop.com](https://extensionworkshop.com/documentation/publish/promoting-your-extension/#promote-your-addon) by the Mozilla Foundation.
+* The "*Get the Add-on*" image is provided at [Extensionworkshop.com](https://extensionworkshop.com/documentation/publish/promoting-your-extension/#promote-your-addon) by the Mozilla Foundation.
 
 * Android is a trademark of Google LLC. 
+
+* The "*Available in the Chrome Web Store*" image is provided in the [Brand Guidelines](https://developer.chrome.com/docs/webstore/branding/) by the Google LLC.
