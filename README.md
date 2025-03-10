@@ -37,25 +37,29 @@ The exension checks the page for the text that holds the shipping information. I
 ## Currently supported Amazon sites
 The following Amazon sites are currently supported, but not every site has been tested.
 Furthermore, not every site has it's own translation for the warning message.
-
-- amazon.com
-- amazon.co.uk
-- amazon.ca
-- amazon.com.au
-- amazon.de
-- amazon.fr
-- amazon.it
-- amazon.es
-- amazon.nl
-- amazon.com.br
-- amazon.in
-- amazon.co.jp
-- amazon.cn
-- amazon.com.mx
-- amazon.sa
-- amazon.eg
-- amazon.sg
-- amazon.com.tr
+<details>
+	<summary>Click to see all supported Amazon domains</summary>
+	<ul>
+		<li>amazon.com</li>
+		<li>amazon.co.uk</li>
+		<li>amazon.ca</li>
+		<li>amazon.com.au</li>
+		<li>amazon.de</li>
+		<li>amazon.fr</li>
+		<li>amazon.it</li>
+		<li>amazon.es</li>
+		<li>amazon.nl</li>
+		<li>amazon.com.br</li>
+		<li>amazon.in</li>
+		<li>amazon.co.jp</li>
+		<li>amazon.cn</li>
+		<li>amazon.com.mx</li>
+		<li>amazon.sa</li>
+		<li>amazon.eg</li>
+		<li>amazon.sg</li>
+		<li>amazon.com.tr</li>
+	</ul>
+</details>
 
 ## Development Dependencies
 For building the extension as expected by the browsers, you need to have the following dependencies installed:
