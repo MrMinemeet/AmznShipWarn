@@ -65,7 +65,7 @@ Furthermore, not every site has it's own translation for the warning message.
 For building the extension as expected by the browsers, you need to have the following dependencies installed:
 - Node.js
 - pnpm
-- dev-dependencies (see `package.json`)
+- dev-dependencies (see [package.json](./package.json#L31))
 
 ### How to build
 1. Clone the repository
