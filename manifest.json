@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "AmznShipWarn",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"description": "Adds a warning to the Amazon page if the item is not shipped by Amazon.",
 	"homepage_url": "https://github.com/MrMinemeet/AmznShipWarn",
 	"content_scripts": [
@@ -14,6 +14,7 @@
 				"https://*.amazon.de/*",
 				"https://*.amazon.fr/*",
 				"https://*.amazon.it/*",
+				"https://*.amazon.ie/*",
 				"https://*.amazon.es/*",
 				"https://*.amazon.nl/*",
 				"https://*.amazon.com.br/*",
