@@ -47,6 +47,7 @@ Furthermore, not every site has it's own translation for the warning message.
 		<li>amazon.de</li>
 		<li>amazon.fr</li>
 		<li>amazon.it</li>
+		<li>amazon.ie</li>
 		<li>amazon.es</li>
 		<li>amazon.nl</li>
 		<li>amazon.com.br</li>
