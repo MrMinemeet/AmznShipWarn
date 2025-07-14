@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "AmznShipWarn",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "Adds a warning to the Amazon page if the item is not shipped by Amazon.",
 	"homepage_url": "https://github.com/MrMinemeet/AmznShipWarn",
 	"content_scripts": [
@@ -32,6 +32,10 @@
 			]
 		}
 	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": "icons/icon-48.png"
+	},
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "{8c008546-9dae-4ce4-8650-345f633ae944}",

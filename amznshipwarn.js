@@ -74,7 +74,7 @@ function isNonAmazonFulfillment() {
 
 	if (offerTextElementsArray.some((element) =>
 		element.tagName === "SPAN" && // Message is in a span element
-		!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
+		!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amazon
 		element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
 	)) {
 		return true;

@@ -1,0 +1,28 @@
+body {
+	font-family: sans-serif;
+	width: 200px;
+	padding-bottom: 20px;
+}
+ul {
+	list-style: none;
+	padding-left: 10px;
+	margin: 5px;
+}
+li a {
+	color: #0d6efd;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	padding: 5px 0;
+}
+li a:hover {
+	text-decoration: underline;
+}
+
+#version-container {
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+	font-size: 11px;
+	color: #888;
+}
