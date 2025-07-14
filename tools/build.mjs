@@ -14,6 +14,7 @@ const MINIFIED_FILE = path.join(".", "tmp", "amznshipwarn.min.js");
 // Additional files bundled in the ZIP archive
 const ADDITIONAL_ZIP_FILES = [
 	path.join(".", "manifest.json"),
+	path.join(".", "popup.html"),
 	path.join(".", "LICENSE"),
 	path.join(".", "icons")
 ];
