@@ -9,11 +9,11 @@
 
 
 # AmznShipWarn
-A browser extension that adds a warning to the Amazon page, if the item is not shipped by Amazon directly
+AmznShipWarn is a lightweight browser extension that alerts you whenever an item on Amazon is not shipped directly by Amazon. Designed to help users avoid unexpected shipping costs or third-party sellers, it works across multiple Amazon domains and integrates seamlessly into both Firefox and Chromium-based browsers.
 
 ## How to install
 ### Firefox 🦊
-For Firefox, you can directly get the extension from the offical Add-On page.  
+For Firefox, you can directly get the extension from the official Add-On page.  
 Also works on Firefox for Android™ <img src="./images/android-head_flat.svg" alt="Android Robot" width="20"/>
 
 [<img src="./images/firefox-get-the-addon-2020.svg" alt="Firefox Add-On page" height="50"/>](https://addons.mozilla.org/firefox/addon/amznshipwarn/)
@@ -32,7 +32,7 @@ For Google Chrome (and most Chromium-based browsers), you can get the extension 
 You won't get automatic updates, but you can watch this repository to get notified about new releases.
 
 ## How does it work?
-The exension checks the page for the text that holds the shipping information. If the text contains the word "Amazon", the extension does nothing. If the text does not contain the word "Amazon", the extension adds a warning to the page. In order to get the user's attention and make them aware of potential shipping costs.
+The extension checks the page for the text that holds the shipping information. If the text contains the word "Amazon", the extension does nothing. If the text does not contain the word "Amazon", the extension adds a warning to the page. In order to get the user's attention and make them aware of potential shipping costs.
 
 ## Currently supported Amazon sites
 The following Amazon sites are currently supported, but not every site has been tested.
