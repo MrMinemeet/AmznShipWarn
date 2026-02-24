@@ -5,7 +5,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "path";
-import archiver from "archiver";
+import { zip } from "fflate";
 import closureCompiler from "google-closure-compiler";
 const { compiler } = closureCompiler;
 
@@ -49,46 +49,64 @@ async function minify(srcFile, destFile) {
 }
 
 /**
+ * Recursively collects files from a directory into an fflate-compatible map
+ * @param {string} dirPath
+ * @param {string} prefix
+ * @param {Record<string, Uint8Array>} result
+ */
+function collectDir(dirPath, prefix, result) {
+	for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+		const fullPath = path.join(dirPath, entry.name);
+		const zipPath = prefix + "/" + entry.name;
+		if (entry.isDirectory()) {
+			collectDir(fullPath, zipPath, result);
+		} else {
+			result[zipPath] = fs.readFileSync(fullPath);
+		}
+	}
+}
+
+/**
  * Creates a ZIP archive containing the given files
  * @param {string[]} sources List of files/folders to include in the ZIP archive
  * @param {string} targetFile Where to write the ZIP archive
  * @returns {Promise<string>}
  */
 async function zipFiles(sources, targetFile) {
-	return new Promise((resolve, reject) => {
-		const output = fs.createWriteStream(targetFile);
-		const archive = archiver("zip", { zlib: { level: 9 } });
-
-		output.on("close", () => resolve(`ZIP archive written to ${targetFile}`));
-		output.on("error", reject);
-
-		archive.pipe(output);
-
-		for (const src of sources) {
-			if (fs.statSync(src).isDirectory()) {
-				archive.directory(src, path.basename(src));
-			} else {
-				archive.file(src, { name: path.basename(src) });
-			}
+	/** @type {Record<string, Uint8Array>} */
+	const files = {};
+	for (const src of sources) {
+		if (fs.statSync(src).isDirectory()) {
+			collectDir(src, path.basename(src), files);
+		} else {
+			files[path.basename(src)] = fs.readFileSync(src);
 		}
-
-		archive.finalize();
+	}
+	return new Promise((resolve, reject) => {
+		zip(files, { level: 9 }, (err, data) => {
+			if (err) return reject(err);
+			fs.writeFile(targetFile, data, (writeErr) => {
+				if (writeErr) reject(writeErr);
+				else resolve(`ZIP archive written to ${targetFile}`);
+			});
+		});
 	});
 }
 
-// Ensure out folder
-if (!fs.existsSync(OUT_FOLDER)) {
-	fs.mkdirSync(OUT_FOLDER);
+// Ensure out and tmp folders exist
+const TMP_FOLDER = path.join(".", "tmp");
+for (const dir of [OUT_FOLDER, TMP_FOLDER]) {
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir);
+	}
 }
 
-// Minify the extension code
+// Minify, then create both ZIP archives
 minify(SOURCE_FILE, MINIFIED_FILE)
-	.then(() => zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], RELEASE_ZIP_FILE))
-	.then(console.log)
-	.catch(console.error);
-
-// Create a ZIP archive without minifying the extension code for AMO review
-zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], AMO_ZIP_FILE)
-	.then(console.log)
+	.then(() => Promise.all([
+		zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], RELEASE_ZIP_FILE),
+		zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], AMO_ZIP_FILE),
+	]))
+	.then(msgs => msgs.forEach(m => console.log(m)))
 	.catch(console.error);
 
