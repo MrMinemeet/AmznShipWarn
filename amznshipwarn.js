@@ -63,31 +63,32 @@ function init() {
  * @returns {boolean} True if non-amazon offer is found
  */
 function isNonAmazonFulfillment() {
-	// Get element of class "offer-display-feature" and "offer-display-feature-name=*fulfiller-info"
+	// Get element of class "offer-display-feature-text-message"
 	const offerTextElementsArray = Array.from(document.getElementsByClassName("offer-display-feature-text-message"));
 
-	// Check if the inner-html for any non-amazon "Sending" offers
+	// Check if there are any offer texts
 	if (offerTextElementsArray.length === 0) {
 		console.error("No offer text found! Cannot determine if non-amazon offer");
 		return false;
 	}
 
+	// Check traditional layout
 	if (offerTextElementsArray.some((element) =>
-		element.tagName === "SPAN" && // Message is in a span element
-		!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amazon
-		element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("fulfillerinfo") // should have parent with "fulfillerInfo" in id
+		element.tagName === "SPAN" && 
+		!element.innerText.toLowerCase().includes("amazon") && 
+		element.closest('[id*="fulfillerInfo" i]') !== null // Case-insensitive attribute selector
 	)) {
 		return true;
 	}
 
-	// When logged in on the mobile view, then the "seller and fulfiller" info may be combined into one line
-	console.debug("No non-amazon offer found in traditonal layout! Checking combined 'sold and fulfiled' layout");
-	// "fulfillerInfoFeature_feature_div" has to have no children
+	// Check combined 'sold and fulfilled' layout
+	console.debug("No non-amazon offer found in traditional layout! Checking combined 'sold and fulfiled' layout");
+
 	if (document.getElementById("fulfillerInfoFeature_feature_div")?.childElementCount === 0) {
 		return offerTextElementsArray.some((element) =>
-			element.tagName === "SPAN" && // Message is in a span element
-			!element.innerText.toLowerCase().includes("amazon") && // Sender should not be amauon
-			element.parentElement?.parentElement?.parentElement?.id.toLowerCase().includes("merchantinfofeature") // should have parent with "merchantInfoFeature" in id
+			element.tagName === "SPAN" && 
+			!element.innerText.toLowerCase().includes("amazon") && 
+			element.closest('[id*="merchantInfoFeature" i]') !== null // Dynamically searches up the DOM tree
 		);
 	}
 
