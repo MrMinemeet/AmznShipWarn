@@ -105,7 +105,7 @@ for (const dir of [OUT_FOLDER, TMP_FOLDER]) {
 minify(SOURCE_FILE, MINIFIED_FILE)
 	.then(() => Promise.all([
 		zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], RELEASE_ZIP_FILE),
-		zipFiles([MINIFIED_FILE, ...ADDITIONAL_ZIP_FILES], AMO_ZIP_FILE),
+		zipFiles([SOURCE_FILE, ...ADDITIONAL_ZIP_FILES], AMO_ZIP_FILE),
 	]))
 	.then(msgs => msgs.forEach(m => console.log(m)))
 	.catch(console.error);
